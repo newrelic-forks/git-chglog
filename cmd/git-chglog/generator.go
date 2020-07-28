@@ -3,7 +3,7 @@ package main
 import (
 	"io"
 
-	chglog "github.com/git-chglog/git-chglog"
+	chglog "github.com/newrelic-forks/git-chglog"
 )
 
 // Generator ...

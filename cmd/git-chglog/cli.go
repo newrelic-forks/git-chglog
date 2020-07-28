@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	chglog "github.com/git-chglog/git-chglog"
+	chglog "github.com/newrelic-forks/git-chglog"
 )
 
 // CLI ...
