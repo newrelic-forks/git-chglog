@@ -126,6 +126,18 @@ func CreateApp(actionFunc cli.ActionFunc) *cli.App {
 			Usage: "Regular expression of tag filter. Is specified, only matched tags will be picked",
 		},
 
+		// sort-by-date
+		cli.BoolFlag{
+			Name:  "sort-by-date",
+			Usage: "Sort tags by date of creation. Use with caution as there are known issues when generating a changelog that contains multiple major versions.",
+		},
+
+		// sort-by-version
+		cli.BoolFlag{
+			Name:  "sort-by-version",
+			Usage: "sort tags by version number",
+		},
+
 		// help & version
 		cli.HelpFlag,
 		cli.VersionFlag,
@@ -180,6 +192,7 @@ func AppAction(c *cli.Context) error {
 			Query:            c.Args().First(),
 			NextTag:          c.String("next-tag"),
 			TagFilterPattern: c.String("tag-filter-pattern"),
+			SortByVersion:    c.Bool("sort-by-version"),
 		},
 		fs,
 		NewConfigLoader(),

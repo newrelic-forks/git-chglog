@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/AlecAivazis/survey/v2 v2.2.8
 	github.com/fatih/color v1.10.0
+	github.com/hashicorp/go-version v1.2.1
 	github.com/imdario/mergo v0.3.11
 	github.com/kyokomi/emoji/v2 v2.2.8
 	github.com/mattn/go-colorable v0.1.8

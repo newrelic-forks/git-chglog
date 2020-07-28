@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/imdario/mergo"
 	chglog "github.com/git-chglog/git-chglog"
+	"github.com/imdario/mergo"
 )
 
 // Info ...
@@ -281,6 +281,7 @@ func (config *Config) Convert(ctx *CLIContext) *chglog.Config {
 			RevertPattern:         opts.Reverts.Pattern,
 			RevertPatternMaps:     opts.Reverts.PatternMaps,
 			NoteKeywords:          opts.Notes.Keywords,
+			SortByVersion:         ctx.SortByVersion,
 		},
 	}
 }
