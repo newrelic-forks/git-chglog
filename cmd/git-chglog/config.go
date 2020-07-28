@@ -274,6 +274,7 @@ func (config *Config) Convert(ctx *CLIContext) *chglog.Config {
 			RevertPattern:        opts.Reverts.Pattern,
 			RevertPatternMaps:    opts.Reverts.PatternMaps,
 			NoteKeywords:         opts.Notes.Keywords,
+			SortByDate:           ctx.SortByDate,
 		},
 	}
 }

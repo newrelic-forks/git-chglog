@@ -2,26 +2,30 @@ package chglog
 
 import (
 	"fmt"
+	"log"
 	"regexp"
 	"sort"
 	"strings"
 	"time"
 
+	"github.com/hashicorp/go-version"
 	gitcmd "github.com/tsuyoshiwada/go-gitcmd"
 )
 
 type tagReader struct {
-	client    gitcmd.Client
-	format    string
-	separator string
-	reFilter  *regexp.Regexp
+	client     gitcmd.Client
+	format     string
+	separator  string
+	reFilter   *regexp.Regexp
+	sortByDate bool
 }
 
-func newTagReader(client gitcmd.Client, filterPattern string) *tagReader {
+func newTagReader(client gitcmd.Client, filterPattern string, sortByDate bool) *tagReader {
 	return &tagReader{
-		client:    client,
-		separator: "@@__CHGLOG__@@",
-		reFilter:  regexp.MustCompile(filterPattern),
+		client:     client,
+		separator:  "@@__CHGLOG__@@",
+		reFilter:   regexp.MustCompile(filterPattern),
+		sortByDate: sortByDate,
 	}
 }
 
@@ -72,8 +76,18 @@ func (r *tagReader) ReadAll() ([]*Tag, error) {
 		})
 	}
 
-	r.sortTags(tags)
+	if r.sortByDate {
+		r.sortTagsByDate(tags)
+	} else {
+		r.sortTagsByVersion(tags)
+	}
+
 	r.assignPreviousAndNextTag(tags)
+
+	h := []string{}
+	for _, z := range tags {
+		h = append(h, z.Name)
+	}
 
 	return tags, nil
 }
@@ -120,8 +134,28 @@ func (*tagReader) assignPreviousAndNextTag(tags []*Tag) {
 	}
 }
 
-func (*tagReader) sortTags(tags []*Tag) {
+func (*tagReader) sortTagsByDate(tags []*Tag) {
 	sort.Slice(tags, func(i, j int) bool {
 		return !tags[i].Date.Before(tags[j].Date)
+	})
+}
+
+func (*tagReader) sortTagsByVersion(tags []*Tag) {
+
+	log.Printf("\n sortTagsByVersion - hooray!!!!!!!!!:  %+v \n", tags)
+	time.Sleep(3 * time.Second)
+
+	sort.Slice(tags, func(i, j int) bool {
+		versionA, err := version.NewVersion(tags[i].Name)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		versionB, err := version.NewVersion(tags[j].Name)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		return versionB.LessThan(versionA)
 	})
 }

@@ -34,6 +34,7 @@ type Options struct {
 	RevertPattern        string              // A regular expression to use for parsing the revert commit
 	RevertPatternMaps    []string            // Similar to `HeaderPatternMaps`
 	NoteKeywords         []string            // Keyword list to find `Note`. A semicolon is a separator, like `<keyword>:` (e.g. `BREAKING CHANGE`)
+	SortByDate           bool
 }
 
 // Info is metadata related to CHANGELOG
@@ -110,7 +111,7 @@ func NewGenerator(config *Config) *Generator {
 	return &Generator{
 		client:          client,
 		config:          config,
-		tagReader:       newTagReader(client, config.Options.TagFilterPattern),
+		tagReader:       newTagReader(client, config.Options.TagFilterPattern, config.Options.SortByDate),
 		tagSelector:     newTagSelector(),
 		commitParser:    newCommitParser(client, config),
 		commitExtractor: newCommitExtractor(config.Options),
