@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	chglog "github.com/git-chglog/git-chglog"
 	"github.com/imdario/mergo"
+	chglog "github.com/newrelic-forks/git-chglog"
 )
 
 // Info ...
@@ -274,6 +274,7 @@ func (config *Config) Convert(ctx *CLIContext) *chglog.Config {
 			RevertPattern:        opts.Reverts.Pattern,
 			RevertPatternMaps:    opts.Reverts.PatternMaps,
 			NoteKeywords:         opts.Notes.Keywords,
+			SortByDate:           ctx.SortByDate,
 		},
 	}
 }
