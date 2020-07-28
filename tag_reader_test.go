@@ -24,7 +24,6 @@ func TestTagReader(t *testing.T) {
 				"refs/tags/4.4.3@@__CHGLOG__@@This is tag subject@@__CHGLOG__@@@@__CHGLOG__@@Fri Feb 2 00:00:00 2018 +0000",
 				"refs/tags/4.4.4@@__CHGLOG__@@Release 4.4.4@@__CHGLOG__@@Fri Feb 2 10:00:40 2018 +0000@@__CHGLOG__@@",
 				"refs/tags/5.0.0-rc.0@@__CHGLOG__@@Release 5.0.0-rc.0@@__CHGLOG__@@Sat Feb 3 12:30:10 2018 +0000@@__CHGLOG__@@",
-				// "refs/tags/hoge_fuga@@__CHGLOG__@@Invalid semver tag name@@__CHGLOG__@@Mon Mar 12 12:30:10 2018 +0000@@__CHGLOG__@@",
 				"hoge@@__CHGLOG__@@",
 			}, "\n"), nil
 		},

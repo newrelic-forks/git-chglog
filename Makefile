@@ -42,9 +42,8 @@ clean:
 	rm -rf $(GOPATH)/bin/git-chglog
 	rm -rf cover.out
 
-.PHONY: bulid
+.PHONY: build
 build: compile
-	# go build -i -o git-chglog
 
 .PHONY: test
 test:
