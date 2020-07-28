@@ -2,7 +2,6 @@ package chglog
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 	"sort"
 	"strings"
@@ -79,15 +78,13 @@ func (r *tagReader) ReadAll() ([]*Tag, error) {
 	if r.sortByDate {
 		r.sortTagsByDate(tags)
 	} else {
-		r.sortTagsByVersion(tags)
+		err := r.sortTagsByVersion(tags)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	r.assignPreviousAndNextTag(tags)
-
-	h := []string{}
-	for _, z := range tags {
-		h = append(h, z.Name)
-	}
 
 	return tags, nil
 }
@@ -140,22 +137,25 @@ func (*tagReader) sortTagsByDate(tags []*Tag) {
 	})
 }
 
-func (*tagReader) sortTagsByVersion(tags []*Tag) {
-
-	log.Printf("\n sortTagsByVersion - hooray!!!!!!!!!:  %+v \n", tags)
-	time.Sleep(3 * time.Second)
+func (*tagReader) sortTagsByVersion(tags []*Tag) error {
+	var versionError error
 
 	sort.Slice(tags, func(i, j int) bool {
 		versionA, err := version.NewVersion(tags[i].Name)
+
 		if err != nil {
-			log.Fatal(err)
+			versionError = err
+			return false
 		}
 
 		versionB, err := version.NewVersion(tags[j].Name)
 		if err != nil {
-			log.Fatal(err)
+			versionError = err
+			return false
 		}
 
 		return versionB.LessThan(versionA)
 	})
+
+	return versionError
 }
