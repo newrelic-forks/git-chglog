@@ -73,3 +73,9 @@ compile:
 		BUILD_FILES=`find $(SRCDIR)/cmd/$$b -type f -name "*.go"` ; \
 		CGO_ENABLED=0 GOOS=$(GOOS) $(GO) build -ldflags=$(LDFLAGS) -o $(BUILD_DIR)/$(GOOS)/$$b $$BUILD_FILES ; \
 	done
+
+# Import fragments
+include build/deps.mk
+include build/document.mk
+include build/release.mk
+include build/util.mk

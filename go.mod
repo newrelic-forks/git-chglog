@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/fatih/color v1.9.0
+	github.com/goreleaser/goreleaser v0.140.1 // indirect
 	github.com/hashicorp/go-version v1.2.1
 	github.com/imdario/mergo v0.3.10
 	github.com/mattn/go-colorable v0.1.7
