@@ -135,7 +135,7 @@ func TestTagReader(t *testing.T) {
 	)
 }
 
-func TestTagReaderSortByTag(t *testing.T) {
+func TestTagReaderSortTagsByVersion(t *testing.T) {
 	assert := assert.New(t)
 	client := &mockClient{
 		ReturnExec: func(subcmd string, args ...string) (string, error) {
@@ -236,7 +236,7 @@ func TestTagReaderSortByTag(t *testing.T) {
 	assert.Equal(expected, actual)
 }
 
-func TestTagReaderSortByTagWithInvalidTag(t *testing.T) {
+func TestTagReaderSortTagsByVersionWithInvalidTag(t *testing.T) {
 	assert := assert.New(t)
 	client := &mockClient{
 		ReturnExec: func(subcmd string, args ...string) (string, error) {
@@ -255,6 +255,6 @@ func TestTagReaderSortByTagWithInvalidTag(t *testing.T) {
 		},
 	}
 
-	_, err := newTagReader(client, "", false).ReadAll()
+	_, err := newTagReader(client, "", true).ReadAll()
 	assert.Error(err)
 }
