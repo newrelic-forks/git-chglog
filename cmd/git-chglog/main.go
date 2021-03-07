@@ -127,7 +127,7 @@ func CreateApp(actionFunc cli.ActionFunc) *cli.App {
 		},
 
 		// sort-by-version
-		cli.BoolFlag{
+		&cli.BoolFlag{
 			Name:  "sort-by-version",
 			Usage: "sort tags by version number",
 		},
